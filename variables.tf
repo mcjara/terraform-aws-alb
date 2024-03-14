@@ -1,5 +1,5 @@
 variable "instance_name" {
-  type        = string
+  type = string
 }
 
 variable "load_balancer_subnets" {
@@ -7,7 +7,7 @@ variable "load_balancer_subnets" {
 }
 
 variable "load_balancer_security_group" {
-  type        = string
+  type = string
 }
 
 variable "logs_bucket_address" {
@@ -17,9 +17,9 @@ variable "logs_bucket_address" {
 
 variable "ssl_certificate" {
   type = object({
-    certificate_body    = string
-    private_key    = string
-    certificate_chain    = string
+    certificate_body  = string
+    private_key       = string
+    certificate_chain = string
   })
 }
 
