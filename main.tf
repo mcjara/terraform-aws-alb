@@ -48,18 +48,22 @@ resource "aws_lb_listener" "http-80" {
 
 # Certificate
 
+/*
+
 resource "aws_acm_certificate" "ssl-certificate" {
   certificate_body  = var.ssl_certificate.certificate_body
   private_key       = var.ssl_certificate.private_key
   certificate_chain = var.ssl_certificate.certificate_chain
 }
 
+ */
+
 resource "aws_lb_listener" "http-443" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = aws_acm_certificate.ssl-certificate.arn
+  certificate_arn   = var.primary_ssl_certificate_arn
 
   default_action {
     type = "fixed-response"
@@ -74,4 +78,10 @@ resource "aws_lb_listener" "http-443" {
   tags = {
     Name = "${var.instance_name}-https-listener"
   }
+}
+
+resource "aws_lb_listener_certificate" "https_additional_certs" {
+  count           = length(var.secondary_ssl_certificates_arn)
+  listener_arn    = aws_lb_listener.http-443.arn
+  certificate_arn = var.secondary_ssl_certificates_arn[count.index]
 }

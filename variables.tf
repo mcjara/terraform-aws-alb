@@ -23,5 +23,10 @@ variable "ssl_certificate" {
   })
 }
 
+variable "primary_ssl_certificate_arn" {
+  type = string
+}
 
-
+variable "secondary_ssl_certificates_arn" {
+  type = list(string)
+}
