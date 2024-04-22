@@ -15,6 +15,8 @@ variable "logs_bucket_address" {
   description = ""
 }
 
+/*
+
 variable "ssl_certificate" {
   type = object({
     certificate_body  = string
@@ -22,6 +24,8 @@ variable "ssl_certificate" {
     certificate_chain = string
   })
 }
+
+ */
 
 variable "primary_ssl_certificate_arn" {
   type = string
