@@ -2,6 +2,10 @@ output "lb_arn" {
   value = aws_lb.alb.arn
 }
 
+output "lb_arn_suffix" {
+  value = aws_lb.alb.arn_suffix
+}
+
 output "lb_dns_record" {
   value = aws_lb.alb.dns_name
 }
