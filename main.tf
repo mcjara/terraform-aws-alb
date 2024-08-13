@@ -7,6 +7,12 @@ resource "aws_lb" "alb" {
   security_groups    = [var.load_balancer_security_group]
   subnets            = var.load_balancer_subnets
 
+  enable_deletion_protection = true
+
+  drop_invalid_header_fields = true
+
+  desync_mitigation_mode = "defensive"
+
   access_logs {
     bucket  = var.logs_bucket_address
     prefix  = "alb/access"
@@ -45,18 +51,6 @@ resource "aws_lb_listener" "http-80" {
     Name = "${var.instance_name}-http-listener"
   }
 }
-
-# Certificate
-
-/*
-
-resource "aws_acm_certificate" "ssl-certificate" {
-  certificate_body  = var.ssl_certificate.certificate_body
-  private_key       = var.ssl_certificate.private_key
-  certificate_chain = var.ssl_certificate.certificate_chain
-}
-
- */
 
 resource "aws_lb_listener" "http-443" {
   load_balancer_arn = aws_lb.alb.arn
